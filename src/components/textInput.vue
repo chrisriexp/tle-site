@@ -8,8 +8,7 @@
             type='date'
             :disabled="isdisabled"
             :id="id"
-            :class="v$.inputData.$error ? 'border-red-400 focus:border-red-400' : 'border-custom-gray border-opacity-20 focus:border-custom-blue'"
-            class="w-full p-2 rounded-md border-2 focus:ring-0"
+            class="w-full p-2 rounded-md border-none bg-input-bg focus:ring-0"
         >
         <input
             v-else-if="password"
@@ -18,8 +17,7 @@
             type='password'
             :id="id"
             :placeholder="placeholderText"
-            :class="v$.inputData.$error ? 'border-red-400 focus:border-red-400' : 'border-custom-gray border-opacity-20 focus:border-custom-blue'"
-            class="w-full p-2 rounded-md border-2 focus:ring-0"
+            class="w-full p-2 rounded-md border-none bg-input-bg focus:ring-0"
         >
         <input
             v-else-if="mask"
@@ -30,8 +28,7 @@
             :disabled="isdisabled"
             :id="id"
             :placeholder="placeholderText"
-            :class="v$.inputData.$error ? 'border-red-400 focus:border-red-400' : 'border-custom-gray border-opacity-20 focus:border-custom-blue'"
-            class="w-full p-2 rounded-md border-2 focus:ring-0"
+            class="w-full p-2 rounded-md border-none bg-input-bg focus:ring-0"
         >
         <input
             v-else
@@ -41,8 +38,7 @@
             :disabled="isdisabled"
             :id="id"
             :placeholder="placeholderText"
-            :class="v$.inputData.$error ? 'border-red-400 focus:border-red-400' : 'border-custom-gray border-opacity-20 focus:border-custom-blue'"
-            class="w-full p-2 rounded-md border-2 focus:ring-0"
+            class="w-full p-2 rounded-md border-none bg-input-bg focus:ring-0"
         >
         <div class="input-errors" v-for="(error, index) of v$.inputData.$errors" :key="index">
             <div class="error-msg text-sm text-red-400">{{ error.$message }}</div>

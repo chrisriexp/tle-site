@@ -4,7 +4,7 @@
     <div v-if="!submitted" class="w-full grid gap-12 justify-items-center py-24 text-custom-blue px-4">
         <h2 class="text-3xl font-bold text-center">Get Appointed</h2>
 
-        <form @submit.prevent="submit" class="w-[80%] lg:w-[50%] grid gap-6">
+        <form @submit.prevent="submit" class="w-[80%] lg:w-[50%] grid gap-6 mb-6">
             <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
                 <textInput @inputUpdate="inputChange" :inputValue="form.name" :id="'name'" :label="'Agent Name'" :placeholderText="'John Doe'" />
                 <textInput @inputUpdate="inputChange" :inputValue="form.agency_name" :id="'agency_name'" :label="'Agency Name'" :placeholderText="'ABC Insurance'" />
@@ -15,7 +15,7 @@
                 <textInput @inputUpdate="inputChange" :inputValue="form.phone" :id="'phone'" :label="'Phone'" :placeholderText="'(555) 555-5555'" :mask=true :maskText="'(###) ###-####'" />
             </div>
 
-            <textarea v-model="form.comment" name="comment" id="comment" cols="30" rows="3" class="w-full p-2 rounded-md border-2 border-custom-gray border-opacity-20 focus:border-custom-blue focus:ring-0"></textarea>
+            <textarea v-model="form.comment" name="comment" id="comment" cols="30" rows="3" class="w-full p-2 rounded-md border-none bg-input-bg focus:ring-0"></textarea>
         
             <input type="submit" class=" w-full py-2 px-6 font-bold text-xl text-white bg-custom-blue rounded-lg mx-auto hover:cursor-pointer">
         </form>

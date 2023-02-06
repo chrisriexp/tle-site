@@ -12,7 +12,8 @@ module.exports = {
       colors: {
       'custom-blue': '#172340',
       'custom-gray': '#4c4c4c',
-      'custom-green': '#029837'
+      'custom-green': '#029837',
+      'input-bg': '#F2F1F1'
       },
       boxShadow: {
       'newdrop': 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;',
