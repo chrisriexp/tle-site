@@ -13,7 +13,7 @@
             <RouterLink to="/get-appointed" class="mt-12 text-white py-4 px-6 bg-custom-blue rounded-2xl w-fit">Get Appointed</RouterLink>
         </div>
 
-        <div class="hidden md:block flow-root">
+        <div class="hidden md:flow-root">
             <img src="../../assets/heroImage.png" alt="Shaking Hands" class="float-right">
         </div>
     </div>
