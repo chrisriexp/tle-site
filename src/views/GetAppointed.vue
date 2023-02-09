@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <Footer class="bottom-0 absolute" />
+    <Footer class="bottom-0 lg:absolute" />
 </template>
 
 <script>
@@ -69,16 +69,6 @@ export default {
                     errors: []
                 }
             ]
-        }
-    },
-    props: {
-        id: {
-            type: String,
-            required: true
-        },
-        name: {
-            type: String,
-            required: true
         }
     },
     methods: {

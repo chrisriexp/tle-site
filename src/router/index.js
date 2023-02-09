@@ -3,7 +3,9 @@ import Home from '../views/Home.vue'
 import NotFound from '../views/NotFound.vue'
 import GetAppointed from '../views/GetAppointed.vue'
 import About from '../views/About.vue'
+import LeadRouter from '../views/LeadRouter.vue'
 import LeadSubmission from '../views/LeadSubmission.vue'
+import HomeLead from '../views/HomeLead.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,7 +25,17 @@ const router = createRouter({
     },
     {
       path: '/lead-submission',
-      component: LeadSubmission
+      component: LeadRouter,
+      children: [
+        {
+          path: '',
+          component: LeadSubmission
+        },
+        {
+          path: 'home-lead',
+          component: HomeLead
+        }
+      ]
     },
     {
       path: '/get-appointed',

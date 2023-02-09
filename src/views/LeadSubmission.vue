@@ -9,7 +9,7 @@
             <div class="w-[325px] h-fit px-8 py-6 grid gap-4 justify-items-center rounded-lg shadow-newdrop">
                 <img src="../assets/house.svg" alt="House" class="h-24">
                 <h2 class="font-medium text-2xl">Homeowner Insurance</h2>
-                <RouterLink to="/homeowner-lead" class="py-2 px-6 bg-custom-blue rounded-xl text-white">New Submission</RouterLink>
+                <RouterLink to="/lead-submission/home-lead" class="py-2 px-6 bg-custom-blue rounded-xl text-white">New Submission</RouterLink>
             </div>
 
             <div class="w-[325px] h-fit px-8 py-6 grid gap-4 justify-items-center rounded-lg shadow-newdrop">
