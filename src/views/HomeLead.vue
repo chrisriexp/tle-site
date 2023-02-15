@@ -33,7 +33,7 @@ export default {
                 'Property Information',
                 'Additional Information'
             ],
-            step: 1,
+            step: 0,
             form: {
                 agent_name: '',
                 agency_name: '',
