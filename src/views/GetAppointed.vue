@@ -11,7 +11,7 @@
             </div>
 
             <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
-                <textInput @inputUpdate="inputChange" :inputValue="form.email" :id="'email'" :label="'Email'" :placeholderText="'john@doe.com'" />
+                <textInput @inputUpdate="inputChange" :inputValue="form.email" :id="'email'" :label="'Email'" :placeholderText="'john@doe.com'" :email=true />
                 <textInput @inputUpdate="inputChange" :inputValue="form.phone" :id="'phone'" :label="'Phone'" :placeholderText="'(555) 555-5555'" :mask=true :maskText="'(###) ###-####'" />
             </div>
 
@@ -26,11 +26,11 @@
 
         <div class="grid gap-2 justify-items-center text-center w-fit">
             <p class="flex md:gap-2 text-lg md:text-2xl font-medium"><CheckBadgeIcon class="h-8 md:h-16 text-custom-green" /><span class="my-auto">Appointment request submitted!</span></p>
-            <p class="text-sm md:text-lg w-[75%]">Thank you for submitting you appointment request, one of our team members will be reaching out shortly.</p>
+            <p class="text-sm md:text-lg w-[75%]">Thank you for submitting your appointment request, one of our team members will be reaching out shortly.</p>
         </div>
     </div>
 
-    <Footer class="bottom-0 lg:absolute" />
+    <Footer :class="submitted ? 'absolute' : ''" class="bottom-0 lg:absolute" />
 </template>
 
 <script>
@@ -39,11 +39,18 @@ import Footer from '../components/footer.vue'
 import textInput from '../components/textInput.vue'
 import { CheckBadgeIcon } from '@heroicons/vue/24/solid'
 
+import emailjs from '@emailjs/browser';
+
 export default {
     name: 'Get Appointed',
     data() {
         return {
             submitted: false,
+            api: {
+                serviceID: 'service_59zevqs',
+                publicKey: 'h29zXRTKkaswfKPkp',
+                getAppointed: 'template_2mmd9n4'
+            },
             form: {
                 name: '',
                 agency_name: '',
@@ -134,10 +141,16 @@ export default {
 
             if(valid) {
                 const formKeys = Object.keys(this.form)
-                
+
+                let emailData = {}
+
                 formKeys.forEach(key => {
+                    emailData[key] = this.form[key]
                     this.form[key] = ''
                 })
+
+                emailjs.init(this.api.publicKey)
+                emailjs.send(this.api.serviceID, this.api.getAppointed, emailData)
 
                 this.submitted = true
             }

@@ -55,7 +55,7 @@
 
         <div class="grid lg:grid-cols-2 gap-6">
             <button @click="back" type="button" class="bg-custom-gray py-2 uppercase text-white text-sm font-medium rounded-md">back</button>
-            <input type="submit" value="next" class="bg-custom-blue py-2 uppercase text-white text-sm font-medium rounded-md">
+            <input type="submit" value="next" class="bg-custom-blue py-2 uppercase text-white text-sm font-medium rounded-md hover:cursor-pointer">
         </div>
     </form>
 </template>
@@ -66,6 +66,9 @@ import states from '../../assets/states.json'
 
 export default {
     name: "Basic Info",
+    props: {
+        data: Object
+    },
     data() {
         return {
             options: states,
@@ -113,6 +116,12 @@ export default {
                 }
             ]
         }
+    },
+    async created(){
+        const keys = Object.keys(this.form)
+        keys.forEach(key => {
+            this.form[key] = this.data[key]
+        })
     },
     methods: {
         back() {

@@ -6,6 +6,8 @@ import About from '../views/About.vue'
 import LeadRouter from '../views/LeadRouter.vue'
 import LeadSubmission from '../views/LeadSubmission.vue'
 import HomeLead from '../views/HomeLead.vue'
+import AdditionalLead from '../views/OtherLead.vue'
+import AutoLead from '../views/AutoLead.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +36,14 @@ const router = createRouter({
         {
           path: 'home-lead',
           component: HomeLead
+        },
+        {
+          path: 'other-lead',
+          component: AdditionalLead
+        },
+        {
+          path: 'auto-lead',
+          component: AutoLead
         }
       ]
     },

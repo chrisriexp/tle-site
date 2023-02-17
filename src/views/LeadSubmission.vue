@@ -15,13 +15,13 @@
             <div class="w-[325px] h-fit px-8 py-6 grid gap-4 justify-items-center rounded-lg shadow-newdrop">
                 <img src="../assets/auto.svg" alt="Car" class="h-24">
                 <h2 class="font-medium text-2xl">Auto Insurance</h2>
-                <RouterLink to="/auto-lead" class="py-2 px-6 bg-custom-blue rounded-xl text-white">New Submission</RouterLink>
+                <RouterLink to="/lead-submission/auto-lead" class="py-2 px-6 bg-custom-blue rounded-xl text-white">New Submission</RouterLink>
             </div>
 
             <div class="w-[325px] h-fit px-8 py-6 grid gap-4 justify-items-center rounded-lg shadow-newdrop">
                 <img src="../assets/ring.svg" alt="Ring" class="h-24">
                 <h2 class="font-medium text-2xl">Additional Products</h2>
-                <RouterLink to="/other-lead" class="py-2 px-6 bg-custom-blue rounded-xl text-white">New Submission</RouterLink>
+                <RouterLink to="/lead-submission/other-lead" class="py-2 px-6 bg-custom-blue rounded-xl text-white">New Submission</RouterLink>
             </div>
         </div>
     </div>

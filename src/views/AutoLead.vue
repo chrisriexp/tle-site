@@ -11,12 +11,12 @@
         </div>
 
         <basicInfo v-if="step == 0" @next="next" :data="form" />
-        <propertyInfo v-if="step == 1" @back="back" @next="next" :data="form" />
-        <additionalInfo v-if="step == 2" @back="back" @submitLead="submitHomeLead" :data="form" />
+        <driverInfo v-if="step == 1" @back="back" @next="next" :data="form" />
+        <vehicleInfo v-if="step == 2" @back="back" @submitLead="submitAutoLead" :data="form" />
     </div>
 
     <div v-else class="grid gap-2 justify-items-center text-center w-fit mx-auto mt-24">
-        <p class="flex md:gap-2 text-lg md:text-2xl font-medium"><CheckBadgeIcon class="h-8 md:h-16 text-custom-green" /><span class="my-auto">Home lead submitted!</span></p>
+        <p class="flex md:gap-2 text-lg md:text-2xl font-medium"><CheckBadgeIcon class="h-8 md:h-16 text-custom-green" /><span class="my-auto">Auto lead submitted!</span></p>
         <p class="text-sm md:text-lg w-[75%]">Thank you for submitting your home lead, one of our team members will be reaching out shortly.</p>
     </div>
 
@@ -28,8 +28,8 @@ import NavBar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
 
 import basicInfo from '../components/basicInfo.vue'
-import propertyInfo from '../components/homeLead/propertyInfo.vue'
-import additionalInfo from '../components/additionalInfo.vue'
+import driverInfo from '../components/autoLead/driverInfo.vue'
+import vehicleInfo from '../components/autoLead/vehicleInfo.vue'
 
 import emailjs from '@emailjs/browser';
 import { CheckBadgeIcon } from '@heroicons/vue/24/solid'
@@ -42,12 +42,12 @@ export default {
             api: {
                 serviceID: 'service_59zevqs',
                 publicKey: 'h29zXRTKkaswfKPkp',
-                homeLead: 'template_etc6ig1'
+                homeLead: 'template_256yw6o'
             },
             steps: [
                 'Basic Information',
-                'Property Information',
-                'Additional Information'
+                'Driver Information',
+                'Vehicle Information'
             ],
             step: 0,
             form: {
@@ -58,22 +58,23 @@ export default {
                 client_name: '',
                 client_email: '',
                 client_phone: '',
-                occupancy: '',
-                insured: false,
-                carrier: '',
-                premium: '',
-                exp_date: '',
-                new_purchase: false, 
+                dob: '',
+                occupation: '',
+                education: '',
+                dl_number: '',
                 address_1: '',
                 address_2: '',
                 city: '',
                 state: '',
                 zip: '',
+                carrier: '',
+                premium: '',
+                exp_date: '',
+                vin: '',
+                year: '',
+                make: '',
+                model: '',
                 comment: ''
-                // upload1: '',
-                // upload2: '',
-                // upload3: '',
-                // upload4: ''
             }
         }
     },
@@ -89,32 +90,16 @@ export default {
             })
 
             this.step += 1
-
-            console.log(this.form)
         },
         change(id, value){
             this.form[id] = value
         },
-        async submitHomeLead(data){
+        async submitAutoLead(data){
             const keys = Object.keys(data)
 
             keys.forEach(key => {
                 this.form[key] = data[key]
             })
-
-            // const uploads = ['upload1', 'upload2', 'upload2', 'upload4']
-
-            // uploads.forEach(upload => {
-            //     const reader = new FileReader();
-
-            //     if(this.form[upload] != ''){
-            //         reader.onload = () => {
-            //             this.form[upload] = reader.result;
-            //         };
-
-            //         reader.readAsDataURL(this.form[upload]);
-            //     }
-            // })
 
             let emailData = {}
 
@@ -134,8 +119,8 @@ export default {
         NavBar,
         Footer,
         basicInfo,
-        propertyInfo,
-        additionalInfo,
+        driverInfo,
+        vehicleInfo,
         emailjs,
         CheckBadgeIcon
     }

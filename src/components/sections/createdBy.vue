@@ -14,7 +14,7 @@
 
                     <p>We have teamed up with QuoteRush® to innovate the way Personal Lines agents submit new business to us. Input your clients data into QuoteRush in under 5 minutes and receive 35+ bindable rates for each A-rated Florida carrier.</p>
 
-                    <button @click="$emit('learnMore')" class="w-fit h-fit py-2 px-6 rounded-xl border-2 border-custom-blue hover:text-white hover:bg-custom-blue">Learn More</button>
+                    <!-- <button @click="$emit('learnMore')" class="w-fit h-fit py-2 px-6 rounded-xl border-2 border-custom-blue hover:text-white hover:bg-custom-blue">Learn More</button> -->
                 </div>
             </div>
 
@@ -27,7 +27,7 @@
 
                 <p>We act as a personal lines department for commercial agents all over the state of Florida. Build a personal lines book through The Lead Exchange. Simply refer the client and let us do all the heavy lifting.</p>
 
-                <button @click="$emit('learnMore')" class="w-fit py-2 px-6 rounded-xl border-2 border-custom-blue hover:text-white hover:bg-custom-blue">Learn More</button>
+                <!-- <button @click="$emit('learnMore')" class="w-fit py-2 px-6 rounded-xl border-2 border-custom-blue hover:text-white hover:bg-custom-blue">Learn More</button> -->
             </div>
         </div>
     </div>

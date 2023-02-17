@@ -15,7 +15,7 @@
                                     <RouterLink to="/" :class="active == 'home' ? 'border-white' : 'border-transparent'" class="border-b-2 py-2 hover:border-white">Home</RouterLink>
                                     <RouterLink to="/about" :class="active == 'about' ? 'border-white' : 'border-transparent'"  class="border-b-2 py-2 hover:border-white">About</RouterLink>
                                     <RouterLink to="/lead-submission" :class="active == 'lead' ? 'border-white' : 'border-transparent'"  class="border-b-2 py-2 hover:border-white">Lead Submission</RouterLink>
-                                    <RouterLink to="/" class=" border-2 rounded-xl py-2 px-4 text-custom-blue bg-white">Get Appointed</RouterLink>
+                                    <RouterLink to="/get-appointed" class=" border-2 rounded-xl py-2 px-4 text-custom-blue bg-white">Get Appointed</RouterLink>
                                 </div>
                             </ul>
                             </div>

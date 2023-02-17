@@ -20,15 +20,18 @@
             <textInput @inputUpdate="inputChange" :inputValue="form.client_phone" :id="'client_phone'" :label="'Client Phone'" :placeholderText="'(555) 555-5555'" :mask=true :maskText="'(###) ###-####'" />
         </div>
 
-        <input type="submit" value="next" class="bg-custom-blue py-2 uppercase text-white text-sm font-medium rounded-md">
+        <input type="submit" value="next" class="bg-custom-blue py-2 uppercase text-white text-sm font-medium rounded-md hover:cursor-pointer">
     </form>
 </template>
 
 <script>
-import textInput from '../textInput.vue';
+import textInput from './textInput.vue';
 
 export default {
     name: "Basic Info",
+    props: {
+        data: Object
+    },
     data() {
         return {
             form: {
@@ -71,6 +74,12 @@ export default {
                 }
             ]
         }
+    },
+    async created(){
+        const keys = Object.keys(this.form)
+        keys.forEach(key => {
+            this.form[key] = this.data[key]
+        })
     },
     methods: {
         inputChange(id, value, errors){
