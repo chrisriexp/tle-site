@@ -12,7 +12,7 @@
 
                     <p class="text-xl font-bold">Personal Lines Agents</p>
 
-                    <p>We have teamed up with QuoteRush® to innovate the way Personal Lines agents submit new business to us. Input your clients data into QuoteRush in under 5 minutes and receive 35+ bindable rates for each A-rated Florida carrier.</p>
+                    <p>As a personal lines agent, partnering with The Lead Exchange can expand your business by providing access to every property and casualty insurance market in Florida, enabling you to place business that you may not be able to on your own.</p>
 
                     <!-- <button @click="$emit('learnMore')" class="w-fit h-fit py-2 px-6 rounded-xl border-2 border-custom-blue hover:text-white hover:bg-custom-blue">Learn More</button> -->
                 </div>

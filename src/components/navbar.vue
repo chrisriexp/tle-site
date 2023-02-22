@@ -48,7 +48,7 @@
                                 <RouterLink to="/" :class="active == 'home' ? 'border-custom-blue' : 'border-transparent'" class="border-b-2 hover:border-custom-blue">Home</RouterLink>
                                 <RouterLink to="/about" :class="active == 'about' ? 'border-custom-blue' : 'border-transparent'" class="border-b-2 hover:border-custom-blue">About</RouterLink>
                                 <RouterLink to="/lead-submission" :class="active == 'lead' ? 'border-custom-blue' : 'border-transparent'" class="border-b-2 hover:border-custom-blue">Lead Submission</RouterLink>
-                                <RouterLink to="/get-appointed" :class="active == 'appointed' ? 'bg-custom-blue text-white' : ''" class="py-2 px-6 border-2 rounded-xl border-custom-blue hover:bg-custom-blue hover:text-white">Get Appointed</RouterLink>
+                                <RouterLink to="/get-appointed" :class="active == 'appointed' ? 'bg-custom-blue text-white' : ''" class="py-2 px-6 border-2 rounded-xl border-custom-blue hover:bg-custom-blue hover:text-white">Get Started</RouterLink>
                             </div>
                         </div>
                     </div>

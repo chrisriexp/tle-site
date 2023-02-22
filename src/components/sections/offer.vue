@@ -17,7 +17,7 @@
                     <p class="flex font-medium gap-4"><CheckCircleIcon class="h-6" />Trust in our expertise and experience to help you stay ahead of market trends and succeed in the ever-changing insurance industry.</p>
                 </div>
 
-                <RouterLink to="/get-appointed" class="w-fit text-custom-blue font-medium border-2 border-custom-blue py-4 px-6 rounded-3xl hover:text-white hover:bg-custom-blue">Get Appointed</RouterLink>
+                <RouterLink to="/get-appointed" class="w-fit text-custom-blue font-medium border-2 border-custom-blue py-4 px-6 rounded-3xl hover:text-white hover:bg-custom-blue">Get Started</RouterLink>
             </div>
         </div>
     </div>

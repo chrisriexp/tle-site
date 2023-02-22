@@ -2,7 +2,7 @@
     <NavBar :active="'appointed'" />
 
     <div v-if="!submitted" class="w-full grid gap-12 justify-items-center py-24 text-custom-blue px-4">
-        <h2 class="text-3xl font-bold text-center">Get Appointed</h2>
+        <h2 class="text-3xl font-bold text-center">Request Appointment</h2>
 
         <form @submit.prevent="submit" class="w-[80%] lg:w-[50%] grid gap-6 mb-6">
             <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
