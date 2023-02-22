@@ -98,12 +98,11 @@ export default {
                 if(this.form[upload] != ''){
                     reader.onload = () => {
                         this.form[upload] = reader.result.split(',')[1]
+                        this.form[upload] = this.form[upload].toString()
                     };
 
                     reader.readAsDataURL(this.form[upload]);
                 }
-
-                this.form[upload] = this.form[upload].toString()
             })
 
             emailjs.init(this.api.publicKey)
