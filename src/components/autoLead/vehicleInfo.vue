@@ -17,6 +17,34 @@
             <textInput @inputUpdate="inputChange" :inputValue="form.model" :id="'model'" :label="'Model'" :required=false />
         </div>
 
+        <div class="w-full grid grid-cols-2 gap-6">
+            <div class="grid gap-6 h-fit">
+                <div class="grid gap-2 h-fit">
+                    <label class="text-md text-custom-blue font-medium">File Upload</label>
+                    <input @change="uploadFile($event)" ref="upload1" type="file" accept=".png, .jpg, .jpeg, .pdf" name="upload1" id="upload1" class="hidden">
+                    <div v-on:click="$refs.upload1.click()" :class="!form.upload1 ? 'border-custom-blue border-opacity-40 bg-custom-blue bg-opacity-40' : 'border-green-400 bg-green-400'" class="flex items-center gap-6 w-full border-2 py-2 rounded-md hover:cursor-pointer">
+                        <div class="flex my-auto mx-auto h-fit gap-2">
+                            <CloudArrowUpIcon class="text-white h-8" />
+                            <p class="text-md text-white font-medium my-auto">Upload</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid gap-6 h-fit">
+                <div class="grid gap-2 h-fit">
+                    <label class="text-md text-custom-blue font-medium">File Upload</label>
+                    <input @change="uploadFile($event)" ref="upload2" type="file" accept=".png, .jpg, .jpeg, .pdf" name="upload2" id="upload2" class="hidden">
+                    <div v-on:click="$refs.upload2.click()" :class="!form.upload2 ? 'border-custom-blue border-opacity-40 bg-custom-blue bg-opacity-40' : 'border-green-400 bg-green-400'" class="flex items-center gap-6 w-full border-2 py-2 rounded-md hover:cursor-pointer">
+                        <div class="flex my-auto mx-auto h-fit gap-2">
+                            <CloudArrowUpIcon class="text-white h-8" />
+                            <p class="text-md text-white font-medium my-auto">Upload</p>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+
         <div class="grid col gap-2">
             <label class="text-md text-custom-blue font-medium">Additional Comments</label>
             <textarea
@@ -57,7 +85,9 @@ export default {
                 year: '',
                 make: '',
                 model: '',
-                comment: ''
+                comment: '',
+                upload1: '',
+                upload2: ''
             }
         }
     },
@@ -83,6 +113,16 @@ export default {
         },
         inputChange(id, value, errors){
             this.form[id] = value
+        },
+        async uploadFile(e){
+            const file = e.target.files[0];
+            if (!file) {
+                return
+            }
+
+            const id =e.target.id
+
+            this.form[id] = file
         },
         submit(){
             let valid = true

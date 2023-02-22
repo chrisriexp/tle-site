@@ -61,7 +61,9 @@ export default {
                 state: '',
                 zip: '',
                 product: '',
-                comment: ''
+                comment: '',
+                upload1: '',
+                upload2: ''
             }
         }
     },
@@ -88,16 +90,24 @@ export default {
                 this.form[key] = data[key]
             })
 
-            let emailData = {}
+            const uploads = ['upload1', 'upload2']
 
-            const formKeys = Object.keys(this.form)
+            uploads.forEach(upload => {
+                const reader = new FileReader();
 
-            formKeys.forEach(key => {
-                emailData[key] = this.form[key]
+                if(this.form[upload] != ''){
+                    reader.onload = () => {
+                        this.form[upload] = reader.result.split(',')[1]
+                    };
+
+                    reader.readAsDataURL(this.form[upload]);
+                }
+
+                this.form[upload] = this.form[upload].toString()
             })
 
             emailjs.init(this.api.publicKey)
-            emailjs.send(this.api.serviceID, this.api.otherLead, emailData)
+            emailjs.send(this.api.serviceID, this.api.otherLead, this.form)
 
             this.submitted = true
         }
