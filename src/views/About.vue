@@ -32,7 +32,7 @@
 
     <div class="w-full grid justify-items-center text-center text-custom-blue bg-custom-blue bg-opacity-5 py-24 px-4">
         <img src="../assets/dots.png" alt="Dots" class="z-0 right-2 absolute mt-[-80px]">
-        <h2 class="text-4xl font-bold xl:w-[45%]">Are you ready to transform your book of business and partner with us?</h2>
+        <h2 class="text-4xl font-bold xl:w-[45%]">Are you ready to transform your book of business and <span class="text-[#A6202F]">Partner</span> with us?</h2>
 
         <RouterLink to="/get-appointed" class="mt-12 text-lg text-white py-2 px-6 rounded-xl bg-custom-blue">Get Started</RouterLink>        
 
