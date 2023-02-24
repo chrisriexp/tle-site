@@ -1,7 +1,7 @@
 <template>
     <!-- <textInput @inputUpdate="inputChange" :inputValue="form.name" :id="'name'" :label="'Agent Name'" :placeholderText="'John Doe'" /> -->
     <form @submit.prevent="submit" class="w-[90%] md:w-[70%] lg:w-[50%] mx-auto grid gap-6 text-left">
-        <!-- <div class="w-full grid grid-cols-2 gap-6">
+        <div class="w-full grid grid-cols-2 gap-6">
             <div class="grid gap-6 h-fit">
                 <div class="grid gap-2 h-fit">
                     <label class="text-md text-custom-blue font-medium">File Upload</label>
@@ -49,7 +49,7 @@
                     </div>
                 </div>
             </div>            
-        </div> -->
+        </div>
 
         <label class="text-md text-custom-blue font-medium">Additional Comments</label>
         <textarea
@@ -81,11 +81,11 @@ export default {
     data() {
         return {
             form: {
-                comment: ''
-                // upload1: '',
-                // upload2: '',
-                // upload3: '',
-                // upload4: ''
+                comment: '',
+                upload1: '',
+                upload2: '',
+                upload3: '',
+                upload4: ''
             }
         }
     },

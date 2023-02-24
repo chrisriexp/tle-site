@@ -2,7 +2,7 @@
     <NavBar :active="'lead'" />
 
     <div v-if="!submitted" class="w-full grid justify-items-center gap-8 mt-6 mb-24">
-        <h1 class="text-3xl text-center">Home Lead</h1>
+        <h1 class="text-3xl text-center">Auto Lead</h1>
 
         <div class="w-[90%] md:w-[70%] lg:w-[50%] mb-12 grid grid-cols-3 text-center font-medium text-[10px] md:text-[12px] border-[1px] border-custom-gray border-opacity-20 rounded-md">
             <div v-for="(item, index) in steps" :key="index" :class="step === index ? 'bg-custom-blue text-white' : ''" class="py-2 rounded-md">
@@ -74,7 +74,9 @@ export default {
                 year: '',
                 make: '',
                 model: '',
-                comment: ''
+                comment: '',
+                upload1: '',
+                upload2: ''
             }
         }
     },
@@ -101,16 +103,23 @@ export default {
                 this.form[key] = data[key]
             })
 
-            let emailData = {}
+            const uploads = ['upload1', 'upload2']
 
-            const formKeys = Object.keys(this.form)
+            uploads.forEach(upload => {
+                const reader = new FileReader();
 
-            formKeys.forEach(key => {
-                emailData[key] = this.form[key]
+                if(this.form[upload] != ''){
+                    reader.onload = () => {
+                        this.form[upload] = reader.result.split(',')[1]
+                        this.form[upload] = this.form[upload].toString()
+                    };
+
+                    reader.readAsDataURL(this.form[upload]);
+                }                
             })
 
             emailjs.init(this.api.publicKey)
-            emailjs.send(this.api.serviceID, this.api.homeLead, emailData)
+            emailjs.send(this.api.serviceID, this.api.homeLead, this.form)
 
             this.submitted = true
         }

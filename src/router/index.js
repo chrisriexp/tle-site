@@ -27,7 +27,6 @@ const router = createRouter({
     },
     {
       path: '/lead-submission',
-      component: LeadRouter,
       children: [
         {
           path: '',
