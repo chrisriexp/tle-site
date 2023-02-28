@@ -10,5 +10,21 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server: {
+    port: 3000,
+    strictPort: true,
+    watch: {
+      usePolling: true
+    },
+    proxy: {
+      '*': {
+        target: '/',
+        rewrite: path => '/index.html'
+      },
+      '/lead-submission': {
+        rewrite: '/index.html'
+      }
+    }
   }
 })

@@ -1,6 +1,7 @@
 <template>
   <NavBar :active="'home'" />
   <HeroSection />
+  <threeStep />
   <Offer />
   <CreatedBy @learnMore="learnMore" />
   <Partners />
@@ -14,6 +15,7 @@ import Offer from '../components/sections/offer.vue'
 import CreatedBy from '../components/sections/createdBy.vue'
 import Partners from '../components/sections/partners.vue'
 import Footer from '../components/footer.vue'
+import threeStep from '../components/sections/threeStep.vue'
 
 export default {
   name: "Home",
@@ -33,7 +35,8 @@ export default {
     Offer,
     CreatedBy,
     Partners,
-    Footer
+    Footer,
+    threeStep,
   }
 }
 </script>
