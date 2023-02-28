@@ -179,7 +179,7 @@ export default {
             const keys = Object.keys(this.form)
 
             keys.forEach(key => {
-                if(this.form[key] == '' && key != 'comment' && key != 'address_2'){
+                if(this.form[key] == '' && key != 'comment' && key != 'address_2' && key != 'upload1' && key != 'upload2'){
                     valid = false
                     this.$alert({
                         title: 'Validation Error',

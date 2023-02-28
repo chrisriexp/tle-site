@@ -42,7 +42,7 @@ export default {
             api: {
                 serviceID: 'service_59zevqs',
                 publicKey: 'h29zXRTKkaswfKPkp',
-                homeLead: 'template_256yw6o'
+                autoLead: 'template_256yw6o'
             },
             steps: [
                 'Basic Information',
@@ -118,10 +118,12 @@ export default {
                 }                
             })
 
-            emailjs.init(this.api.publicKey)
-            emailjs.send(this.api.serviceID, this.api.homeLead, this.form)
+            setTimeout(() => {
+                emailjs.init(this.api.publicKey)
+                emailjs.send(this.api.serviceID, this.api.autoLead, this.form)
 
-            this.submitted = true
+                this.submitted = true
+            }, 1000)
         }
     },
     components: {

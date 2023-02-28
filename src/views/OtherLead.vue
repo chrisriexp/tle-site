@@ -105,10 +105,12 @@ export default {
                 }
             })
 
-            emailjs.init(this.api.publicKey)
-            emailjs.send(this.api.serviceID, this.api.otherLead, this.form)
+            setTimeout(() => {
+                emailjs.init(this.api.publicKey)
+                emailjs.send(this.api.serviceID, this.api.otherLead, this.form)
 
-            this.submitted = true
+                this.submitted = true
+            }, 1000)
         }
     },
     components: {

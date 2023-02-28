@@ -2,7 +2,7 @@
     <!-- <textInput @inputUpdate="inputChange" :inputValue="form.name" :id="'name'" :label="'Agent Name'" :placeholderText="'John Doe'" /> -->
     <form @submit.prevent="submit" class="w-[90%] md:w-[70%] lg:w-[50%] mx-auto grid gap-6 text-left">
         <div class="grid lg:grid-cols-2 gap-6">
-            <textInput @inputUpdate="inputChange" :inputValue="form.vin" :id="'vin'" :label="'VIN Number'" :required=false />
+            <textInput @inputUpdate="inputChange" :inputValue="form.vin" :id="'vin'" :label="'VIN Number'" />
             <textInput @inputUpdate="inputChange" :inputValue="form.carrier" :id="'carrier'" :label="'Current Carrier'" :required=false />
         </div>
 
@@ -12,9 +12,9 @@
         </div>
 
         <div class="grid lg:grid-cols-3 gap-6">
-            <textInput @inputUpdate="inputChange" :inputValue="form.year" :id="'year'" :label="'Year'" :mask=true :maskText="'####'" :required=false />
-            <textInput @inputUpdate="inputChange" :inputValue="form.make" :id="'make'" :label="'Make'" :required=false />
-            <textInput @inputUpdate="inputChange" :inputValue="form.model" :id="'model'" :label="'Model'" :required=false />
+            <textInput @inputUpdate="inputChange" :inputValue="form.year" :id="'year'" :label="'Year'" :mask=true :maskText="'####'" />
+            <textInput @inputUpdate="inputChange" :inputValue="form.make" :id="'make'" :label="'Make'" />
+            <textInput @inputUpdate="inputChange" :inputValue="form.model" :id="'model'" :label="'Model'" />
         </div>
 
         <div class="w-full grid grid-cols-2 gap-6">
@@ -129,8 +129,10 @@ export default {
 
             const keys = Object.keys(this.form)
 
+            const check = ['']
+
             keys.forEach(key => {
-                if(this.form[key] == '' && key != 'comment' && key != 'address_2'){
+                if(this.form[key] == '' && key != 'comment' && key != 'carrier' && key != 'premium' && key != 'exp_date' && key != 'upload1' && key != 'upload2'){
                     valid = false
                     this.$alert({
                         title: 'Validation Error',
