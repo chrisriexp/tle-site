@@ -71,9 +71,7 @@ export default {
                 zip: '',
                 comment: '',
                 upload1: '',
-                upload2: '',
-                upload3: '',
-                upload4: ''
+                upload2: ''
             }
         }
     },
@@ -89,8 +87,6 @@ export default {
             })
 
             this.step += 1
-
-            console.log(this.form)
         },
         change(id, value){
             this.form[id] = value
@@ -102,7 +98,7 @@ export default {
                 this.form[key] = data[key]
             })
 
-            const uploads = ['upload1', 'upload2', 'upload2', 'upload4']
+            const uploads = ['upload1', 'upload2']
 
             uploads.forEach(upload => {
                 const reader = new FileReader();
@@ -117,10 +113,12 @@ export default {
                 }
             })
 
-            emailjs.init(this.api.publicKey)
-            emailjs.send(this.api.serviceID, this.api.homeLead, this.form)
+            setTimeout(() => {
+                emailjs.init(this.api.publicKey)
+                emailjs.send(this.api.serviceID, this.api.homeLead, this.form)
 
-            this.submitted = true
+                this.submitted = true
+            }, 1000)
         }
     },
     components: {
