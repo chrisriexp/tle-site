@@ -20,7 +20,7 @@
                 </div>   
             </div>
 
-            <RouterLink to="/get-appointed" class="mt-6 md:mt-12 text-white py-4 px-6 bg-custom-blue rounded-2xl w-fit">Get Started</RouterLink>
+            <RouterLink to="/get-appointed" class="mt-8 md:mt-12 text-white py-4 px-6 bg-custom-blue rounded-2xl w-fit">Get Started</RouterLink>
         </div>
 
         <div class="hidden md:flow-root">

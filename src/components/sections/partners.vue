@@ -3,16 +3,17 @@
         <img src="../../assets/dots.png" alt="Dots" class="z-0 right-2 absolute mt-[-80px]">
         <h2 class="text-4xl font-bold">Our Proud Partners</h2>
 
-        <div class="grid gap-10 mt-36 justify-items-center h-fit px-4">
-            <div class="grid lg:grid-cols-3 gap-10 lg:gap-16 font-bold opacity-30 text-4xl w-fit">
-                <p>Insurance Express.com</p>
-                <p>RollYourBook</p>
-                <p>QuoteSlash</p>
+        <div class="grid gap-10 mt-16 justify-items-center h-fit px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16 font-bold opacity-30 text-4xl w-fit">
+                <img src="../../assets/InsuranceExpressLogo.jpg" class="w-[60%] md-w:[30%] my-auto mx-auto">
+                <img src="../../assets/ProtegoVIP.png" class="my-auto mx-auto w-[50%] md:w-[30%] ">
+                <img src="../../assets/Quote_Slash_Logo.png" class="my-auto mx-auto w-[50%] md:w-[40%]">
             </div>
 
-            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 font-bold opacity-30 text-4xl w-fit">
-                <p>QuoteRush<br><span class="text-xl">Fast, Intelligent, Rating Technology</span></p>
-                <p>Inspection Express<br><span class="text-xl">Mold  Insurance  Home</span></p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 font-bold opacity-30 text-4xl w-fit">
+                
+                <img src="../../assets/InspectionExpressLogo.png" class="w-[50%] md:w-[30%] mx-auto">
+                <img src="../../assets/quoterushlogo.png" class="w-[50%] md:w-[30%] my-auto mx-auto">
             </div>
         </div>
 
