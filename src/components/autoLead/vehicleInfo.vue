@@ -108,9 +108,17 @@ export default {
                 return
             }
 
-            const id =e.target.id
+            const id = e.target.id
 
-            this.form[id] = file
+            if(file.size / 1024 > 2048){
+                this.$alert({
+                    title: "Upload Error",
+                    text: "Please upload a file smaller than 2MB",
+                    type: 'error'
+                })
+            } else {
+                this.form[id] = file
+            }
         },
         inputChange(id, value, errors){
             this.form[id] = value

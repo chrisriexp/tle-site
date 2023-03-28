@@ -124,10 +124,8 @@ export default {
                         this.loading = false
                         this.submitted = true
                     }
-                })
-                .catch(error => {
-                    this.loading = false
-                    if(error.status == 426){
+                    else if(response.status == 426){
+                        this.loading = false
                         this.$alert({
                             title: 'Upload Error',
                             text: 'Please upload files under 2MB',
