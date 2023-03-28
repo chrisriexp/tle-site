@@ -1,9 +1,7 @@
 <template>
     <NavBar :active="'lead'" />
 
-    <loading :class="loading ? '' : 'hidden'" class="ml-[48%] mt-[15%] z-10 absolute" />
-
-    <div v-if="!submitted" class="w-full grid justify-items-center gap-8 mt-6 mb-24 z-0">
+    <div v-if="!submitted" class="w-full grid justify-items-center gap-8 mt-6 mb-24">
         <h1 class="text-3xl text-center">Home Lead</h1>
 
         <div class="w-[90%] md:w-[70%] lg:w-[50%] mb-12 grid grid-cols-3 text-center font-medium text-[10px] md:text-[12px] border-[1px] border-custom-gray border-opacity-20 rounded-md">
