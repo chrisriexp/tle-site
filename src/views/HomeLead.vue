@@ -1,7 +1,9 @@
 <template>
     <NavBar :active="'lead'" />
 
-    <div v-if="!submitted" class="w-full grid justify-items-center gap-8 mt-6 mb-24">
+    <loading :class="loading ? '' : 'hidden'" class="ml-[48%] mt-[15%] z-10 absolute" />
+
+    <div v-if="!submitted" class="w-full grid justify-items-center gap-8 mt-6 mb-24 z-0">
         <h1 class="text-3xl text-center">Home Lead</h1>
 
         <div class="w-[90%] md:w-[70%] lg:w-[50%] mb-12 grid grid-cols-3 text-center font-medium text-[10px] md:text-[12px] border-[1px] border-custom-gray border-opacity-20 rounded-md">
@@ -12,7 +14,7 @@
 
         <basicInfo v-if="step == 0" @next="next" :data="form" />
         <propertyInfo v-if="step == 1" @back="back" @next="next" :data="form" />
-        <additionalInfo v-if="step == 2" @back="back" @submitLead="submitHomeLead" :data="form" />
+        <additionalInfo v-if="step == 2" @back="back" @submitLead="submitHomeLead" :data="form" :loading="loading" />
     </div>
 
     <div v-else class="grid gap-2 justify-items-center text-center w-fit mx-auto mt-24">
@@ -26,6 +28,7 @@
 <script>
 import NavBar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
+import loading from '../components/loading.vue'
 
 import basicInfo from '../components/basicInfo.vue'
 import propertyInfo from '../components/homeLead/propertyInfo.vue'
@@ -38,6 +41,7 @@ export default {
     name: "Home Lead",
     data() {
         return {
+            loading: false,
             submitted: false,
             api: {
                 serviceID: 'service_59zevqs',
@@ -92,6 +96,7 @@ export default {
             this.form[id] = value
         },
         async submitHomeLead(data){
+            this.loading = true
             const keys = Object.keys(data)
 
             keys.forEach(key => {
@@ -116,8 +121,22 @@ export default {
             setTimeout(() => {
                 emailjs.init(this.api.publicKey)
                 emailjs.send(this.api.serviceID, this.api.homeLead, this.form)
-
-                this.submitted = true
+                .then(response => {
+                    if(response.status == 200){
+                        this.loading = false
+                        this.submitted = true
+                    }
+                })
+                .catch(error => {
+                    this.loading = false
+                    if(error.status == 426){
+                        this.$alert({
+                            title: 'Upload Error',
+                            text: 'Please upload files under 2MB',
+                            type: 'warn'
+                        })
+                    }
+                })
             }, 1000)
         }
     },
@@ -127,6 +146,7 @@ export default {
         basicInfo,
         propertyInfo,
         additionalInfo,
+        loading,
         emailjs,
         CheckBadgeIcon
     }

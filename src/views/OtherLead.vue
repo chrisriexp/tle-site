@@ -1,6 +1,8 @@
 <template>
     <NavBar :active="'lead'" />
 
+    <loading :class="loading ? '' : 'hidden'" class="ml-[48%] mt-[15%] z-10 absolute" />
+
     <div v-if="!submitted" class="w-full grid justify-items-center gap-8 mt-6 mb-24">
         <h1 class="text-3xl text-center">Additional Products Lead</h1>
 
@@ -11,7 +13,7 @@
         </div>
 
         <basicInfo v-if="step == 0" @next="next" :data="form" />
-        <additionalInfo v-if="step == 1" @back="back" @submitLead="submitOtherLead" :data="form" />
+        <additionalInfo v-if="step == 1" @back="back" @submitLead="submitOtherLead" :data="form" :loading="loading" />
     </div>
 
     <div v-else class="grid gap-2 justify-items-center text-center w-fit mx-auto mt-24">
@@ -25,6 +27,7 @@
 <script>
 import NavBar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
+import loading from '../components/loading.vue'
 
 import basicInfo from '../components/basicInfo.vue'
 import additionalInfo from '../components/additionalProductInfo.vue'
@@ -36,6 +39,7 @@ export default {
     name: "Additional Products Lead",
     data() {
         return {
+            loading: false,
             submitted: false,
             api: {
                 serviceID: 'service_59zevqs',
@@ -84,6 +88,7 @@ export default {
             this.form[id] = value
         },
         async submitOtherLead(data){
+            this.loading = true
             const keys = Object.keys(data)
 
             keys.forEach(key => {
@@ -105,12 +110,24 @@ export default {
                 }
             })
 
-            setTimeout(() => {
-                emailjs.init(this.api.publicKey)
+            emailjs.init(this.api.publicKey)
                 emailjs.send(this.api.serviceID, this.api.otherLead, this.form)
-
-                this.submitted = true
-            }, 1000)
+                .then(response => {
+                    if(response.status == 200){
+                        this.loading = false
+                        this.submitted = true
+                    }
+                })
+                .catch(error => {
+                    this.loading = false
+                    if(error.status == 426){
+                        this.$alert({
+                            title: 'Upload Error',
+                            text: 'Please upload files under 2MB',
+                            type: 'warn'
+                        })
+                    }
+                })
         }
     },
     components: {
@@ -118,6 +135,7 @@ export default {
         Footer,
         basicInfo,
         additionalInfo,
+        loading,
         emailjs,
         CheckBadgeIcon
     }
