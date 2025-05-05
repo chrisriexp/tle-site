@@ -1,8 +1,6 @@
 <template>
     <NavBar :active="'lead'" />
 
-    <loading :class="loading ? '' : 'hidden'" class="ml-[48%] mt-[15%] z-10 absolute" />
-
     <div v-if="!submitted" class="w-full grid justify-items-center gap-8 mt-24 md:mt-6 mb-24">
         <h1 class="text-3xl text-center">Auto Lead</h1>
 
@@ -14,7 +12,7 @@
 
         <basicInfo v-if="step == 0" @next="next" :data="form" />
         <driverInfo v-if="step == 1" @back="back" @next="next" :data="form" />
-        <vehicleInfo v-if="step == 2" @back="back" @submitLead="submitAutoLead" :data="form" :loading="loading" />
+        <vehicleInfo v-if="step == 2" @back="back" @submitLead="submitAutoLead" :data="form" />
     </div>
 
     <div v-else class="grid gap-2 justify-items-center text-center w-fit mx-auto mt-24">
@@ -28,26 +26,19 @@
 <script>
 import NavBar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
-import loading from '../components/loading.vue'
 
 import basicInfo from '../components/basicInfo.vue'
 import driverInfo from '../components/autoLead/driverInfo.vue'
 import vehicleInfo from '../components/autoLead/vehicleInfo.vue'
 
-import emailjs from '@emailjs/browser';
 import { CheckBadgeIcon } from '@heroicons/vue/24/solid'
+import mailService from '../utils/mailService.js'
 
 export default {
     name: "Home Lead",
     data() {
         return {
-            loading: false,
             submitted: false,
-            api: {
-                serviceID: 'service_59zevqs',
-                publicKey: 'h29zXRTKkaswfKPkp',
-                autoLead: 'template_256yw6o'
-            },
             steps: [
                 'Basic Information',
                 'Driver Information',
@@ -101,7 +92,6 @@ export default {
             this.form[id] = value
         },
         async submitAutoLead(data){
-            this.loading = true
             const keys = Object.keys(data)
 
             keys.forEach(key => {
@@ -123,25 +113,20 @@ export default {
                 }                
             })
 
-            setTimeout(() => {
-                emailjs.init(this.api.publicKey)
-                emailjs.send(this.api.serviceID, this.api.autoLead, this.form)
-                .then(response => {
-                    if(response.status == 200){
-                        this.loading = false
-                        this.submitted = true
+            setTimeout(async () => {
+                try {
+                    const result = await mailService.sendLeadEmail(this.form, 'Auto');
+                    
+                    if (result.success) {
+                        this.submitted = true;
+                    } else {
+                        console.error("Failed to send email:", result.error);
+                        alert("Failed to submit lead. Please try again.");
                     }
-                })
-                .catch(error => {
-                    this.loading = false
-                    if(error.status == 426){
-                        this.$alert({
-                            title: 'Upload Error',
-                            text: 'Please upload files under 2MB',
-                            type: 'warn'
-                        })
-                    }
-                })
+                } catch (error) {
+                    console.error("Error submitting lead:", error);
+                    alert("An error occurred while submitting the lead. Please try again later.");
+                }
             }, 1000)
         }
     },
@@ -151,8 +136,6 @@ export default {
         basicInfo,
         driverInfo,
         vehicleInfo,
-        loading,
-        emailjs,
         CheckBadgeIcon
     }
 }

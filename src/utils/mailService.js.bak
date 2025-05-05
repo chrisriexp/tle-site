@@ -1,0 +1,166 @@
+// Mail service utility for sending emails via SMTP
+const nodemailer = require('nodemailer');
+
+// Create reusable transporter object using SMTP
+const transporter = nodemailer.createTransport({
+  host: process.env.MAIL_HOST || 'smtp-mail.outlook.com',
+  port: process.env.MAIL_PORT || 587,
+  secure: false, // true for 465, false for other ports
+  auth: {
+    user: process.env.MAIL_USERNAME || 'noreply@insuranceexpress.com',
+    pass: process.env.MAIL_PASSWORD || ''
+  },
+  tls: {
+    ciphers: 'SSLv3'
+  }
+});
+
+// Mail sender function
+const sendMail = async (recipient, subject, htmlContent, attachments = []) => {
+  try {
+    // Define mail options
+    const mailOptions = {
+      from: `"${process.env.MAIL_FROM_NAME || 'Insurance Express'}" <${process.env.MAIL_FROM_ADDRESS || 'noreply@insuranceexpress.com'}>`,
+      to: recipient,
+      cc: 'chandlercoven@gmail.com',
+      subject: subject,
+      html: htmlContent,
+      attachments: attachments
+    };
+
+    // Send mail with defined transport object
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Message sent: %s', info.messageId);
+    return { success: true, messageId: info.messageId };
+  } catch (error) {
+    console.error('Error sending email:', error);
+    return { success: false, error: error.message };
+  }
+};
+
+// Specific email sender for leads
+const sendLeadEmail = async (leadData, leadType) => {
+  const recipient = process.env.LEAD_EMAIL || 'quotes@theiepipeline.com';
+  const subject = `New ${leadType} Lead Submission`;
+  
+  // Create HTML content from lead data
+  let htmlContent = `
+    <h1>New ${leadType} Lead Submission</h1>
+    <h2>Agent Information</h2>
+    <p><strong>Agent Name:</strong> ${leadData.agent_name || 'N/A'}</p>
+    <p><strong>Agency Name:</strong> ${leadData.agency_name || 'N/A'}</p>
+    <p><strong>Email:</strong> ${leadData.email || 'N/A'}</p>
+    <p><strong>Phone:</strong> ${leadData.phone || 'N/A'}</p>
+    
+    <h2>Client Information</h2>
+    <p><strong>Client Name:</strong> ${leadData.client_name || 'N/A'}</p>
+    <p><strong>Client Email:</strong> ${leadData.client_email || 'N/A'}</p>
+    <p><strong>Client Phone:</strong> ${leadData.client_phone || 'N/A'}</p>
+  `;
+
+  // Form sections based on lead type
+  if (leadType === 'Auto') {
+    htmlContent += `
+      <h2>Driver Information</h2>
+      <p><strong>Date of Birth:</strong> ${leadData.dob || 'N/A'}</p>
+      <p><strong>Occupation:</strong> ${leadData.occupation || 'N/A'}</p>
+      <p><strong>Education:</strong> ${leadData.education || 'N/A'}</p>
+      <p><strong>Driver License Number:</strong> ${leadData.dl_number || 'N/A'}</p>
+      
+      <h2>Vehicle Information</h2>
+      <p><strong>VIN:</strong> ${leadData.vin || 'N/A'}</p>
+      <p><strong>Year:</strong> ${leadData.year || 'N/A'}</p>
+      <p><strong>Make:</strong> ${leadData.make || 'N/A'}</p>
+      <p><strong>Model:</strong> ${leadData.model || 'N/A'}</p>
+    `;
+  } else if (leadType === 'Home') {
+    htmlContent += `
+      <h2>Property Information</h2>
+      <p><strong>Occupancy:</strong> ${leadData.occupancy || 'N/A'}</p>
+      <p><strong>Currently Insured:</strong> ${typeof leadData.insured === 'boolean' ? (leadData.insured ? 'Yes' : 'No') : 'N/A'}</p>
+      <p><strong>New Purchase:</strong> ${typeof leadData.new_purchase === 'boolean' ? (leadData.new_purchase ? 'Yes' : 'No') : 'N/A'}</p>
+    `;
+  } else if (leadType === 'Additional Product') {
+    htmlContent += `
+      <h2>Product Information</h2>
+      <p><strong>Product:</strong> ${leadData.product || 'N/A'}</p>
+    `;
+  }
+  
+  // Add common insurance info if present
+  if (leadData.carrier || leadData.premium || leadData.exp_date) {
+    htmlContent += `
+      <h2>Current Insurance Information</h2>
+      <p><strong>Current Carrier:</strong> ${leadData.carrier || 'N/A'}</p>
+      <p><strong>Current Premium:</strong> ${leadData.premium || 'N/A'}</p>
+      <p><strong>Expiration Date:</strong> ${leadData.exp_date || 'N/A'}</p>
+    `;
+  }
+  
+  // Add address information
+  htmlContent += `
+    <h2>Address Information</h2>
+    <p><strong>Address Line 1:</strong> ${leadData.address_1 || 'N/A'}</p>
+    <p><strong>Address Line 2:</strong> ${leadData.address_2 || 'N/A'}</p>
+    <p><strong>City:</strong> ${leadData.city || 'N/A'}</p>
+    <p><strong>State:</strong> ${leadData.state || 'N/A'}</p>
+    <p><strong>ZIP Code:</strong> ${leadData.zip || 'N/A'}</p>
+  `;
+  
+  // Add comments if present
+  if (leadData.comment) {
+    htmlContent += `
+      <h2>Additional Comments</h2>
+      <p>${leadData.comment}</p>
+    `;
+  }
+  
+  // Prepare attachments if any
+  const attachments = [];
+  if (leadData.upload1) {
+    attachments.push({
+      filename: 'attachment1.pdf',
+      content: leadData.upload1,
+      encoding: 'base64'
+    });
+  }
+  
+  if (leadData.upload2) {
+    attachments.push({
+      filename: 'attachment2.pdf',
+      content: leadData.upload2,
+      encoding: 'base64'
+    });
+  }
+  
+  return sendMail(recipient, subject, htmlContent, attachments);
+};
+
+// Specific email sender for appointment requests
+const sendAppointmentEmail = async (appointmentData) => {
+  const recipient = process.env.APPOINTMENT_EMAIL || 'appointment@theiepipeline.com';
+  const subject = 'New Appointment Request';
+  
+  // Create HTML content from appointment data
+  let htmlContent = `
+    <h1>New Appointment Request</h1>
+    <p><strong>Name:</strong> ${appointmentData.firstName} ${appointmentData.lastName}</p>
+    <p><strong>Email:</strong> ${appointmentData.email || 'N/A'}</p>
+    <p><strong>Phone:</strong> ${appointmentData.phone || 'N/A'}</p>
+    <p><strong>Agency:</strong> ${appointmentData.agency || 'N/A'}</p>
+  `;
+  
+  // Add comment if available
+  if (appointmentData.comment) {
+    htmlContent += `<h2>Additional Information</h2>
+    <p>${appointmentData.comment}</p>`;
+  }
+  
+  return sendMail(recipient, subject, htmlContent);
+};
+
+export default {
+  sendMail,
+  sendLeadEmail,
+  sendAppointmentEmail
+}; 

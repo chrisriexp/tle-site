@@ -39,7 +39,7 @@
 
         <div class="grid lg:grid-cols-2 gap-6">
             <button @click="back" type="button" class="bg-custom-gray py-2 uppercase text-white text-sm font-medium rounded-md">back</button>
-            <input :disabled="loading" type="submit" value="submit" class="bg-custom-blue py-2 uppercase text-white text-sm font-medium rounded-md hover:cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">
+            <input type="submit" value="submit" class="bg-custom-blue py-2 uppercase text-white text-sm font-medium rounded-md hover:cursor-pointer">
         </div>
     </form>
 </template>
@@ -50,8 +50,7 @@ import { CloudArrowUpIcon } from '@heroicons/vue/24/outline'
 export default {
     name: "Additional Info",
     props: {
-        data: Object,
-        loading: Boolean
+        data: Object
     },
     data() {
         return {
@@ -78,17 +77,9 @@ export default {
                 return
             }
 
-            const id = e.target.id
+            const id =e.target.id
 
-            if(file.size / 1024 > 2048){
-                this.$alert({
-                    title: "Upload Error",
-                    text: "Please upload a file smaller than 2MB",
-                    type: 'error'
-                })
-            } else {
-                this.form[id] = file
-            }
+            this.form[id] = file
         },
         submit(){
             let valid = true

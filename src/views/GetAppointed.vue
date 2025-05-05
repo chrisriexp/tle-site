@@ -38,19 +38,14 @@ import NavBar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
 import textInput from '../components/textInput.vue'
 import { CheckBadgeIcon } from '@heroicons/vue/24/solid'
-
-import emailjs from '@emailjs/browser';
+import mailService from '../utils/mailService.js'
 
 export default {
     name: 'Get Appointed',
     data() {
         return {
             submitted: false,
-            api: {
-                serviceID: 'service_59zevqs',
-                publicKey: 'h29zXRTKkaswfKPkp',
-                getAppointed: 'template_2mmd9n4'
-            },
+            processing: false,
             form: {
                 name: '',
                 agency_name: '',
@@ -97,6 +92,45 @@ export default {
             }
         },
         submit(){
+            if(this.validateForm()){
+                this.processing = true
+
+                const emailData = {
+                    firstName: this.form.name.split(' ')[0] || '',
+                    lastName: this.form.name.split(' ').slice(1).join(' ') || '',
+                    email: this.form.email,
+                    phone: this.form.phone,
+                    agency: this.form.agency_name,
+                    comment: this.form.comment
+                }
+
+                setTimeout(async () => {
+                    try {
+                        const result = await mailService.sendAppointmentEmail(emailData);
+                        
+                        if (result.success) {
+                            this.submitted = true;
+                            this.processing = false;
+                            
+                            // Clear form data
+                            const formKeys = Object.keys(this.form)
+                            formKeys.forEach(key => {
+                                this.form[key] = ''
+                            })
+                        } else {
+                            console.error("Failed to send email:", result.error);
+                            alert("Failed to submit appointment request. Please try again.");
+                            this.processing = false;
+                        }
+                    } catch (error) {
+                        console.error("Error submitting appointment request:", error);
+                        alert("An error occurred while submitting the appointment request. Please try again later.");
+                        this.processing = false;
+                    }
+                }, 1000)
+            }
+        },
+        validateForm() {
             let valid = true
 
             this.errors.forEach(item => {
@@ -139,21 +173,7 @@ export default {
                 }
             })
 
-            if(valid) {
-                const formKeys = Object.keys(this.form)
-
-                let emailData = {}
-
-                formKeys.forEach(key => {
-                    emailData[key] = this.form[key]
-                    this.form[key] = ''
-                })
-
-                emailjs.init(this.api.publicKey)
-                emailjs.send(this.api.serviceID, this.api.getAppointed, emailData)
-
-                this.submitted = true
-            }
+            return valid
         }
     },
     components: {
